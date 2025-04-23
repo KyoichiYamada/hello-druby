@@ -1,8 +1,9 @@
 # hello-druby
 
+## Example
 ```ruby
-ruby server.rb
+ruby example/server.rb
 # 別ウィンドウを開く
-ruby client.rb
+ruby example/client.rb
 # -> 2025-04-23 22:07:36 +0900
 ```
