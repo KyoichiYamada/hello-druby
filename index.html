@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <style>
+      #comments-container {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+      }
+      .floating-comment {
+        position: absolute;
+        right: 0;
+        white-space: nowrap;
+      }
+      @keyframes floatLeft {
+        from { transform: translateX(100%); }
+        to { transform: translateX(-900%); }
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="hello"></h2>
+    <div>
+      <input type="text" id="comment-input" placeholder="Enter your comment" />
+      <button id="send-button">Send</button>
+    </div>
+    <div id="comments-container"></div>
+    <script type="module">
+      import { DefaultRubyVM } from "https://cdn.jsdelivr.net/npm/@ruby/wasm-wasi@2.7.1/dist/browser/+esm";
+      const response = await fetch("/dist/app.wasm");
+      const module = await WebAssembly.compileStreaming(response);
+      const { vm } = await DefaultRubyVM(module);
+
+      vm.evalAsync(`
+        require_relative 'src/hello'
+      `);
+    </script>
+  </body>
+</html>
